@@ -26,8 +26,8 @@ document.getElementById('toggle-print').addEventListener('click', () => {
 });
 const startAutoPrint = () => {
   isAutoPrint = !isAutoPrint;
-  document.getElementById('toggle-print').innerHTML = isAutoPrint ? "Stop Auto Print" : "Start Auto Print";
   if (isChrome && isConnectPrinter) {
+    document.getElementById('toggle-print').innerHTML = isAutoPrint ? "Stop Auto Print" : "Start Auto Print";
     if(isAutoPrint) {
       autoPrintInterval = setInterval(testAutoPrint, 3000);
     } else {
@@ -53,9 +53,11 @@ const testAutoPrint = () => {
   </body>
   </html>`;
   doPrint(newWindow, html);
-  // const newTr = document.createElement('tr');
-  // newTr.innerHTML = `<td>${Math.random()}</td> <td>Printed</td>`;
-  // tableBody.appendChild(newTr);
+  newWindow.onafterprint = () => {
+    const newTr = document.createElement('tr');
+    newTr.innerHTML = `<td>${Math.random()}</td> <td>Printed</td>`;
+    tableBody.appendChild(newTr);
+  };
 }
 
 const getPrintWindow = (w, h, title) => {
