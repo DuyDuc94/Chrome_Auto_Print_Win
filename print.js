@@ -8,17 +8,13 @@ const tableBody = document.getElementById('test-content')
 const getBrowser = () => {
   const detailBrowser = navigator.userAgent;
   isChrome = detailBrowser.includes("Chrome") && navigator.vendor.includes("Google Inc");
-  document.getElementById('is-chrome').innerHTML = `<h4>Is Chrome: ${isChrome}</h4>`;
-  document.getElementById('check-browser').innerHTML = `<h4>Browser: ${detailBrowser}</h4>`;
+  document.getElementById('is-chrome').innerHTML = `<p><b>Is Chrome:</b> ${isChrome}</p>`;
+  document.getElementById('check-browser').innerHTML = `<p><b>Browser detail:</b> ${detailBrowser}</p>`;
 }
 
 const checkPrinter = () => {
   isConnectPrinter = navigator.connection.saveData === true;
-  if (navigator.connection.saveData === true) {
-    document.getElementById('check-printer').innerHTML = `<h4>Is connect printer: ${isConnectPrinter}</h4>`;
-  } else {
-    document.getElementById('check-printer').innerHTML = `<h4>Is connect printer: ${isConnectPrinter}</h4>`;
-  }
+  document.getElementById('check-printer').innerHTML = `<p><b>Is connect printer:</b> ${isConnectPrinter}</p>`;
 }
 
 document.getElementById('toggle-print').addEventListener('click', () => {
