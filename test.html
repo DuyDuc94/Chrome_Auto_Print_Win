@@ -8,10 +8,25 @@
 </head>
 <body>
   <h3>Test Auto Print Chrome</h3><br>
-  <div id="is-chrome"></div><br>
-  <div id="check-browser"></div><br>
-  <div id="check-printer"></div><br>
-  <b>Auto Printing:</b> <button id="toggle-print">Start Auto Print</button><br><br>
+  <table class="table table-bordered">
+    <tr>
+      <th>Is Chrome Browser</th>
+      <td id="is-chrome"></td>
+    </tr>
+    <tr>
+      <th>Browser Detail</th>
+      <td id="browser-detail"></td>
+    </tr>
+    <tr>
+      <th>Is Connect Printer</th>
+      <td id="check-printer"></td>
+    </tr>
+  </table>
+
+  <div style="margin-bottom: 20px;"><b>Auto Printing:</b> <button id="toggle-print">Start Auto Print</button></div>
+
+  <button id="test">Open new window</button>
+
   <table class="table">
     <thead>
       <tr>
