@@ -8,13 +8,13 @@ const tableBody = document.getElementById('test-content')
 const getBrowser = () => {
   const detailBrowser = navigator.userAgent;
   isChrome = detailBrowser.includes("Chrome") && navigator.vendor.includes("Google Inc");
-  document.getElementById('is-chrome').innerHTML = `<p><b>Is Chrome:</b> ${isChrome}</p>`;
-  document.getElementById('check-browser').innerHTML = `<p><b>Browser detail:</b> ${detailBrowser}</p>`;
+  document.getElementById('is-chrome').innerHTML = isChrome;
+  document.getElementById('browser-detail').innerHTML = detailBrowser;
 }
 
 const checkPrinter = () => {
   isConnectPrinter = navigator.connection.saveData === true;
-  document.getElementById('check-printer').innerHTML = `<p><b>Is connect printer:</b> ${isConnectPrinter}</p>`;
+  document.getElementById('check-printer').innerHTML = isConnectPrinter;
 }
 
 document.getElementById('toggle-print').addEventListener('click', () => {
@@ -22,10 +22,10 @@ document.getElementById('toggle-print').addEventListener('click', () => {
 });
 const startAutoPrint = () => {
   isAutoPrint = !isAutoPrint;
-  if (isChrome && isConnectPrinter) {
+  if (isChrome && true) {
     document.getElementById('toggle-print').innerHTML = isAutoPrint ? "Stop Auto Print" : "Start Auto Print";
     if(isAutoPrint) {
-      autoPrintInterval = setInterval(testAutoPrint, 3000);
+      autoPrintInterval = setInterval(testAutoPrint, 5000);
     } else {
       clearInterval(autoPrintInterval);
     }
@@ -34,8 +34,14 @@ const startAutoPrint = () => {
   }
 }
 
-const testAutoPrint = () => {
-  const newWindow = getPrintWindow(800, 600, "Test print");
+setInterval(() => {
+  if (tableBody.children.length >= 5) {
+    clearInterval(autoPrintInterval);
+  }
+}, 1000)
+
+const testAutoPrint = async () => {
+  const newWindow = getPrintWindow(200, 200, "Test print");
   const data = `test data: ${Math.random()}`;
   const html = `<!DOCTYPE html>
   <html lang="en">
@@ -48,12 +54,13 @@ const testAutoPrint = () => {
     ${data}
   </body>
   </html>`;
-  doPrint(newWindow, html);
-  newWindow.onafterprint = () => {
+  await doPrint(newWindow, html).then((result) => {
     const newTr = document.createElement('tr');
-    newTr.innerHTML = `<td>${Math.random()}</td> <td>Printed</td>`;
+    newTr.innerHTML = `<td>${Math.random()}</td> <td>${result}</td>`;
     tableBody.appendChild(newTr);
-  };
+  }).catch((err) => {
+    console.log(err);
+  });
 }
 
 const getPrintWindow = (w, h, title) => {
@@ -78,11 +85,16 @@ const getPrintWindow = (w, h, title) => {
   return newWindow;
 }
 
-const doPrint = (newWindow, html) => {
+const doPrint = async (newWindow, html) => {
   newWindow.document.write(html)
   newWindow.print()
+  const successPrinted = false;
+  newWindow.onafterprint = () => {
+    successPrinted = true;
+  }
   newWindow.document.close()
   newWindow.close()
+  return successPrinted;
 }
 
 getBrowser();
