@@ -22,7 +22,7 @@ document.getElementById('toggle-print').addEventListener('click', () => {
 });
 const startAutoPrint = () => {
   isAutoPrint = !isAutoPrint;
-  if (isChrome && true) {
+  if (isChrome && isConnectPrinter) {
     document.getElementById('toggle-print').innerHTML = isAutoPrint ? "Stop Auto Print" : "Start Auto Print";
     if(isAutoPrint) {
       autoPrintInterval = setInterval(testAutoPrint, 5000);
