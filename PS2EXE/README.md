@@ -94,7 +94,7 @@ powershell
 Install-Module ps2exe
 exit
 ```
-Beginning with the next start of *Powershell Core* you can just call *ps2exe*, *ps2exe.ps1* or *Invoke-PS2EXE* to execute *PS2EXE* (you can add further parameters to *Install-Module* accoding to your requirements).
+Beginning with the next start of *Powershell Core* you can just call *ps2exe*, *ps2exe.ps1* or *Invoke-PS2EXE* to execute *PS2EXE* (you can add further parameters to *Install-Module* according to your requirements).
 
 But remember, you can only compile scripts that are compatible to *Powershell 5*!
 
